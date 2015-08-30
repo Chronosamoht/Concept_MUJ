@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 
 <head>
   <meta charset="utf-8">
@@ -9,23 +10,27 @@
  <nav>
  <div id="titre">
  
-  <img src ="../rss.png" alt="rss"/>
-  <h1>Power</h1>
+  <h1>MUJ Recherche</h1>
   
   </div>
-  
-    <ul>
-    <a href="afficher_flux.php">    <li>
-        Archives
-	</li></a><a href="navimages.php"><li>
-        Moteur de recherche
-    </li></a> <a href="recherche.php"><li> 
-       Participez
-    </li></a><a href="backoffice.php"><li>
-        Backoffice
-    </li></a>
+<ul>
+    <li> 
+	<a href="<?php echo base_url('Archives'); ?>">    Archives  </a>
+	</li> 
+	<li> 
+	<a href="<?php echo base_url('Concepts'); ?>">    Moteur de recherche  </a>
+	</li> 
+	<li> 
+	<a href="<?php echo base_url('Participe'); ?>">    Participez  </a>
+	</li> 
+	<li> 
+	<a href="<?php echo base_url('Backoffice'); ?>">    Backoffice  </a>
+	</li> 
+
 </ul>   
 </nav>
+ 
+ <body>
 
 
 

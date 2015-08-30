@@ -1,7 +1,13 @@
+  
+ </body>
+ 
  <footer>
  
 
-<p> Thomas Jalabert </p>
+<p> Ano Nyme // 2015 </p>
 
 
  </footer>
+ 
+
+</html>
