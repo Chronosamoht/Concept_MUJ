@@ -37,7 +37,7 @@ class Backoffice extends CI_Controller {
 					       	'date' => set_value('date'),
 					       	'adresse' => set_value('adresse'),
 					       	'lettre' => set_value('lettre'),
-							'anglais' => set_value('anglais')
+						'anglais' => set_value('anglais')
 						);
 					
 			// run insert model to write data to db
@@ -46,14 +46,15 @@ class Backoffice extends CI_Controller {
 			if ($this->Message_muj->SaveForm($form_data) == TRUE) // the information has therefore been successfully saved in the db
 			{
 				$this->load->view('templates/header');
-				echo 'this form has been successfully submitted with all validation being passed. All messages or logic here. Please note
-			sessions have not been used and would need to be added in to suit your app';   // or whatever logic needs to occur
-			
+                                $this->load->view('templates/OK_form');
 				$this->load->view('templates/footer');
 			}
 			else
 			{
-			echo 'An error occurred saving your information. Please try again later';
+                            
+                            $this->load->view('templates/header');
+                            $this->load->view('templates/error_form');
+                            $this->load->view('templates/footer');
 			// Or whatever error handling is necessary
 			}
 			

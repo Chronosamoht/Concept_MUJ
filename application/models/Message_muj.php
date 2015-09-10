@@ -6,57 +6,65 @@ class Message_muj extends CI_Model {
 	{
 		parent::__construct();
 	}
-	
+
+        
 	function SaveForm($form_data)
 	{
 		$date = $form_data['date'];
 		$adresse = $form_data['adresse'];
-		
-		$ids_paragraphs_fr = $this->save_paragraph($form_data['lettre']);
-		$ids_paragraphs_en = $this->save_paragraph($form_data['anglais']);
-		
-		$this->db->set('date', $date);
-		$this->db->set('adresse', $adresse);
+                
+                $date2 = new DateTime($date);
+    
+		$this->db->set('Date', $date2->format('Y-m-d'));
+		$this->db->set('Adresse', $adresse);
 		$this->db->set('ID_LANG', 1);
-		$this->db->set('Paragraphes', $ids_paragraphs_fr);
 		$this->db->insert('message');
-		
-		$this->db->set('date', $date);
-		$this->db->set('adresse', $adresse);
+
+                
+		$this->db->set('Date', $date2->format('Y-m-d'));
+		$this->db->set('Adresse', $adresse);
 		$this->db->set('ID_LANG', 2);
-		$this->db->set('Paragraphes', $ids_paragraphs_en);
 		$this->db->insert('message');
+                
+                
+                $this->save_paragraph($form_data['lettre'], $this->getIDmessage($date2->format('Y-m-d'),  1));
+                $this->save_paragraph($form_data['anglais'], $this->getIDmessage($date2->format('Y-m-d'),  2));
 		
-		if ($this->db->affected_rows() == '2')
-		{
-			return TRUE;
-		}
 		
-		return FALSE;
+		return TRUE;
 	}
-	
-	function save_paragraph($text)
+        
+        function getIDmessage($date,$id_lang) {
+            
+       //     $query = $this->db->query('SELECT ID FROM message WHERE Date='.$date.' AND ID_LANG='.$id_lang.';');
+            $this->db->select('ID');
+            $this->db->where('Date', $date);
+            
+            $this->db->where('ID_LANG', $id_lang);
+            $query = $this->db->get('message');
+            $res =  $query->result();
+
+            return intval($res[0]->ID);
+        }
+        
+	function save_paragraph($text, $id_message)
 	{
-		$tab_paragraphs = explode("\r\n", trim($text));
 		
-		$this->db->select_max('id')->from('langue');
-		$query = $this->db->get();
-		
-		$res =  $query->result();
-		$id = intval($res[0]->id);
-		$i = 0;
-		$deb = 1 +$id;
+                
+                $tab_paragraphs = explode("\r\n", trim($text));
+                
 		foreach($tab_paragraphs as $para)
 		{
 			if(str_word_count($para) > 2) {
 				$this->db->set('text', $para);
+                                $this->db->set('ID_MESSAGE', $id_message);
 				$this->db->set('Tags', '');
 				$this->db->insert('paragraphe');
-				++$i;
+				
 			}
 		}
-		
-		return strval($deb).','.strval($deb+$i);
+                
+		return TRUE;
 	}
 		
 		
