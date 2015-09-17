@@ -75,8 +75,7 @@ class Archives extends CI_Controller {
     }
   */  
     
-    public function byyear($year) {
-        $this->load->view('templates/header');
+    public function byyear($year) {     
 
         $this->db->like('Date', $year, 'after');
         $query = $this->db->get('message');
@@ -93,8 +92,6 @@ class Archives extends CI_Controller {
         
         $this->load->view('print_by_year', array('tab_mess' => $tab_mess, 'years' =>$tab_year));
         
-        
-        $this->load->view('templates/footer');
     }
     
     public function fetch_paragraphs($id_message) {
@@ -113,6 +110,8 @@ class Archives extends CI_Controller {
 
     public function index() {
 
+        
+        echo "<p class=\"lead\"> Dernier message : </p>";
         $this->index_fra();
 
         // menu right : 
@@ -122,7 +121,6 @@ class Archives extends CI_Controller {
     }
 
     public function index_fra() {
-        $this->load->view('templates/header');
 
         $tab_year = array_unique(explode(',', $this->getyears()));
         sort($tab_year);
@@ -130,12 +128,10 @@ class Archives extends CI_Controller {
         $tab_messages = $this->get_last_messages();
 
         $this->print_unique($tab_messages['fra'], $tab_year);
-        
-        $this->load->view('templates/footer');
+           
     }
     
     public function index_eng() {
-        $this->load->view('templates/header');
 
         $tab_year = array_unique(explode(',', $this->getyears()));
         sort($tab_year);
@@ -143,22 +139,16 @@ class Archives extends CI_Controller {
         $tab_messages = $this->get_last_messages();
 
         $this->print_unique($tab_messages['eng'],  $tab_year);
-        
-        $this->load->view('templates/footer');
+
     }
     
     public function index_both() {
-        $this->load->view('templates/header');
-
+ 
         $tab_year = array_unique(explode(',', $this->getyears()));
         sort($tab_year);
-
-
         $tab_messages = $this->get_last_messages();
 
         $this->print_both($tab_messages,  $tab_year);
-        
-        $this->load->view('templates/footer');
     }
     
 }

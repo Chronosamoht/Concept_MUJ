@@ -1,3 +1,6 @@
+<?php include 'templates/header.php'; ?>
+
+<p class="lead"> Messages de la Maison Universelle de Justice : </p>
 
 
 <div class='print_unique'> 
@@ -16,3 +19,6 @@
 </div> 
 
 <?php include 'templates/menu_years.php'; ?>
+
+
+<?php include 'templates/footer.php'; ?>
