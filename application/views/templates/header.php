@@ -7,10 +7,10 @@
 
 
   <!--   Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="http://localhost/MUJ_Concept/toolkit/bootstrap.min.css">
+  <link rel="stylesheet" href="http://localhost/MUJ_Concept/toolkit/jquery-ui.min.css">
   
-  <link rel="stylesheet" href="http://localhost/MUJ_Concept/style.css">
+  <link rel="stylesheet" href="http://localhost/MUJ_Concept/toolkit/style.css">
   
 
 </head>

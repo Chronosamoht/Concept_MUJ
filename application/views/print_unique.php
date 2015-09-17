@@ -3,7 +3,9 @@
 <p class="lead"> Messages de la Maison Universelle de Justice : </p>
 
 
-<div class='print_unique'> 
+
+  <div class="col-md-8 print_unique"> 
+  
     <?php
 //ucfirst(
     include 'templates/print.php';
@@ -16,9 +18,22 @@
     echo "<p><a href=\"" . base_url("Archives/index_both") . "\">Messages côte à côte</a> </p>";
     ?>
 
-</div> 
+  
+  </div>
+    
+    
+  <div class="col-md-4">
+      
+      <?php include 'templates/menu_years.php'; ?>
+      
+  </div>
 
-<?php include 'templates/menu_years.php'; ?>
 
 
+
+
+
+
+    
+    
 <?php include 'templates/footer.php'; ?>

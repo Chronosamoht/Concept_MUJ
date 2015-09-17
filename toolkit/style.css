@@ -24,14 +24,20 @@ nav a {
 
 .print_unique {
     width:676px;
+    border:1px solid;
 }
 
-.years {
+.col-md-4 {
+    float:right;
+    border:1px solid;
+}
+
+/*.years {
     width: 300px;
     height: 500px;
-    float:right;
+   // float:right;
     
-}
+}*/
 
 .modal-content {
     background-color: #E2E4EF;
