@@ -1,10 +1,8 @@
 <?php include 'templates/header.php'; ?>
 
-<p class="lead"> Messages de la Maison Universelle de Justice : </p>
+<div class='print_both col-md-10' >
 
-<div class='print_both' >
-
-    <div >
+    <div class="col-md-6">
 
         <?php
         $message = $mess['fra'];
@@ -14,7 +12,7 @@
 
     </div>
     
-    <div >
+    <div class="col-md-6" >
 
         <?php
         $message = $mess['eng'];
@@ -24,14 +22,16 @@
 
     </div>
 
-</div>
-
 <div>
     <?php
     echo "<p><a href=\"" . base_url("Archives/index_eng") . "\">Message en anglais</a> </p>";
     echo "<p><a href=\"" . base_url("Archives/index_fra") . "\">Messages en français</a> </p>";
     ?>
 </div>
+    
+</div>
+
+
 
 <?php include 'templates/menu_years.php'; ?>
 

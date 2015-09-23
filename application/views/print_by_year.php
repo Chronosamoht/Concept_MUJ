@@ -1,6 +1,6 @@
 <?php include 'templates/header.php'; ?>
 
-<p class="lead"> Messages de l'année choisie : </p>
+<div class="col-md-12"> 
 
 <?php
 foreach ($tab_mess as $tab ) {
@@ -10,7 +10,11 @@ foreach ($tab_mess as $tab ) {
     include 'templates/print.php';
 
 }
+?>
+    
+  </div>
 
+<?php
  include 'templates/menu_years.php';
 
  include 'templates/footer.php'; 

@@ -110,8 +110,6 @@ class Archives extends CI_Controller {
 
     public function index() {
 
-        
-        echo "<p class=\"lead\"> Dernier message : </p>";
         $this->index_fra();
 
         // menu right : 

@@ -1,5 +1,4 @@
 <?php
-
 // echo "<p>Adressé ".$message->Adresse."</p>";
 if ($message->ID_LANG == 1) {
     setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
@@ -9,11 +8,13 @@ if ($message->ID_LANG == 1) {
 
 }
 
-echo "<div>";
+echo "<div class=\"paragraphe\">";
+$i = 0;
 foreach ($para as $value) {
-    echo "<p>" . $value . "</p>";
+    echo "<p class=\"$i\">" . $value . "</p>";
 }
-echo "<div/>";
+echo "</div>";
+
 
 
 

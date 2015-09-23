@@ -47,7 +47,7 @@ echo form_open('../Backoffice/', $attributes);
 </p>
 
 <p>
-    <?php echo form_submit(array('name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-success btn-lg')); ?>
+    <?php echo form_submit(array('name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-primary  btn-lg')); ?>
 </p>
  
 <?php echo form_close(); ?>

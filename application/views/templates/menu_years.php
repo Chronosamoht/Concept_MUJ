@@ -1,5 +1,6 @@
 
-<div class='years modal-content text-center'> 
+<div class='years modal-content text-center col-md-3'> 
+    
     <h3> Archives </h3>
     <?php
     foreach ($years as $year) {
