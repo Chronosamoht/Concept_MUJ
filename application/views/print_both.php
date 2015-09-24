@@ -1,6 +1,6 @@
 <?php include 'templates/header.php'; ?>
 
-<div class='print_both col-md-10' >
+<div class='print_both col-md-14' >
 
     <div class="col-md-6">
 
@@ -33,6 +33,6 @@
 
 
 
-<?php include 'templates/menu_years.php'; ?>
+<?php // include 'templates/menu_years.php'; ?>
 
 <?php  include 'templates/footer.php'; ?>

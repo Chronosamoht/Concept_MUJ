@@ -10,6 +10,18 @@ body {
     text-align:center;
 }
 
+.paragraphe p {
+    -webkit-transition: 0.5s; 
+    transition: 0.5s;
+}
+
+.paragraphe p:hover {
+    padding: 15px 0px 15px 0px;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
 footer {
     /*    padding: 20px 0px;
         font-size: 12px;
@@ -67,9 +79,14 @@ li {
     float:left;
 }
 
+.paragraphe {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: left;
+}
+
 
 .print_unique {
-    width:676px;
     border:1px solid;
 }
 
@@ -86,7 +103,7 @@ li {
 
 .modal-content {
     background-color: #E2E4EF;
-    margin-top: 14px;
+    float: right;
 }
 
 /*.years {

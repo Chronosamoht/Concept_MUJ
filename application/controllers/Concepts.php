@@ -16,7 +16,7 @@ class Concepts extends CI_Controller {
     public function index() {
         $this->load->view('templates/header');
 
-        //   $this->load->view('formulaire_concept');
+        $this->load->view('formulaire_concept');
 
         $this->load->view('templates/footer');
     }

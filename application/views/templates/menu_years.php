@@ -1,5 +1,5 @@
 
-<div class='years modal-content text-center col-md-3'> 
+<div class='years modal-content text-center col-md-2'> 
     
     <h3> Archives </h3>
     <?php

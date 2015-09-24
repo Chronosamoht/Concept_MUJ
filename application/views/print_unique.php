@@ -4,7 +4,7 @@
 
 
 
-  <div class="print_unique col-md-12"> 
+  <div class="print_unique col-md-10"> 
   
     <?php
 //ucfirst(

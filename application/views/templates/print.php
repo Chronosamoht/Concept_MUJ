@@ -1,3 +1,15 @@
+
+<script>
+
+function show_para($a) {
+    
+    //alert($a);
+    var id = '<?php echo $message->ID; ?>';
+    alert(id);
+}
+</script>
+
+
 <?php
 // echo "<p>Adressé ".$message->Adresse."</p>";
 if ($message->ID_LANG == 1) {
@@ -8,10 +20,23 @@ if ($message->ID_LANG == 1) {
 
 }
 
+//
+//Remplacer le paragraphe cliqué par une fenetre modale :
+//
+//<div class="modal hide" id="infos">
+//  <div class="modal-header"> <a class="close" data-dismiss="modal">×</a>
+//    <p class="lead">Paragraphe $i</h3>
+//  </div>
+//  <div class="modal-body">
+//    <p>Paragraphe</p>
+//  </div>
+//</div>
+//
+
 echo "<div class=\"paragraphe\">";
 $i = 0;
 foreach ($para as $value) {
-    echo "<p class=\"$i\">" . $value . "</p>";
+    echo "<p onclick=\"show_para($i)\" >" . $value . "</p>";
 }
 echo "</div>";
 
