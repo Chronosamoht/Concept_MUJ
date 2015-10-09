@@ -30,6 +30,7 @@ class Message_muj extends CI_Model {
 
         return TRUE;
     }
+       
 
     function getIDmessage($date, $id_lang) {
 
@@ -47,10 +48,10 @@ class Message_muj extends CI_Model {
     function save_paragraph($text, $id_message) {
 
 
-        $tab_paragraphs = explode("\r\n", trim($text));
+        $tab_paragraphs = explode("\n", $text);
 
         foreach ($tab_paragraphs as $para) {
-            if (str_word_count($para) > 2) {
+           if (str_word_count($para) > 0) {
                 $this->db->set('text', $para);
                 $this->db->set('ID_MESSAGE', $id_message);
                 $this->db->set('Tags', '');

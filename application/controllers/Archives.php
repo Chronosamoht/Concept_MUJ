@@ -45,13 +45,13 @@ class Archives extends CI_Controller {
     }
 
     public function print_unique($message,  $tab_year) {
-        $tab_paragraphs = explode(',', $this->fetch_paragraphs($message->ID));
+        $tab_paragraphs = $this->fetch_paragraphs($message->ID);
         $this->load->view('print_unique', array('para' => $tab_paragraphs, 'message' => $message, 'years' =>$tab_year));
     }
     
     public function print_both($message, $tab_year) {
-        $tab_paragraphsfra = explode(',', $this->fetch_paragraphs($message['fra']->ID));
-        $tab_paragraphseng = explode(',', $this->fetch_paragraphs($message['eng']->ID));
+        $tab_paragraphsfra = $this->fetch_paragraphs($message['fra']->ID);
+        $tab_paragraphseng = $this->fetch_paragraphs($message['eng']->ID);
         $this->load->view('print_both', array('parafra' => $tab_paragraphsfra, 'paraeng' => $tab_paragraphseng, 'mess' => $message, 'years' =>$tab_year));
     }
 /*
@@ -99,13 +99,14 @@ class Archives extends CI_Controller {
         $this->db->where('ID_MESSAGE', $id_message);
         $query = $this->db->get('paragraphe');
 
-        $paras = '';
-
-        foreach ($query->result() as $row) {
-            $paras = $paras . ',' . $row->Text;
+        $tab_text = [];
+        foreach($query->result() as $dude) {
+            array_push($tab_text, $dude->Text);
         }
-
-        return substr($paras, 1);
+        
+        return $tab_text;
+        
+        
     }
 
     public function index() {
