@@ -54,7 +54,7 @@ class Message_muj extends CI_Model {
            if (str_word_count($para) > 0) {
                 $this->db->set('text', $para);
                 $this->db->set('ID_MESSAGE', $id_message);
-                $this->db->set('Tags', '');
+                
                 $this->db->insert('paragraphe');
             }
         }

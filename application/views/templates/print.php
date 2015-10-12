@@ -17,11 +17,11 @@
             success: function (data) {
                 //var b = JSON.parse(data);
                 var para = data.text;
-                var concept = data.concepts;
-                
+                var concepts = data.concepts;
+                //alert(concepts);
                 $(".modal-title").text("Paragraphe n°" + num_para + 1);
                 $(".modal-paragraph").html("<p>" + para + "</p>\n");
-                $(".modal-concepts").html("<p>" + concept + "</p>\n");
+                $(".modal-concepts").html("<p>" + concepts + "</p>\n");
 
             }
             //data: 'num_para='+$num_para+'&id_message='+
@@ -32,6 +32,7 @@
 
 
 <?php
+
 // echo "<p>Adressé ".$message->Adresse."</p>";
 if ($message->ID_LANG == 1) {
     setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
@@ -49,16 +50,12 @@ $i = 0;
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Paragraphe n </h4>
+                <h4 class="modal-title"> </h4>
             </div>
             <div class="modal-body">
-                <div class="modal-paragraph col-md-6">
-                    Paragraphe
-                    
+                <div class="modal-paragraph col-md-10 span6">
                 </div>
-                <div class="modal-concepts col-md-2">
-                    Concepts
-                    
+                <div class="modal-concepts col-md-2 span6">             
                 </div>
             </div>
         </div><!-- /.modal-content -->

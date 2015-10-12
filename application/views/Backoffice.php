@@ -13,6 +13,7 @@ echo "<h2 class=\"text-muted\" > Backoffice </h2>";
 // Change the css classes to suit your needs    
 echo validation_errors();
 $attributes = array('class' => 'form-inline ', 'id' => '');
+
 echo form_open('../Backoffice/', $attributes);
 
 //echo form_open('../Backoffice/form_MUJ');

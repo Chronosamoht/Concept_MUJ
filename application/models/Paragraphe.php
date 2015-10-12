@@ -11,7 +11,7 @@ class Paragraphe extends CI_Model {
         
         function getPara($num_para, $id_message) {
             
-            $this->db->select('ID, Text, Tags');
+            $this->db->select('ID, Text, ID_MESSAGE');
             $this->db->where('ID_MESSAGE', $id_message);
             $query = $this->db->get('paragraphe');
             $res = $query->result();
@@ -25,11 +25,12 @@ class Paragraphe extends CI_Model {
 		
 		if ($this->db->affected_rows() == '1')
 		{
-			return TRUE;
+                    return TRUE;
 		}
 		
 		return FALSE;
 	}
+        
 }
 
 ?>

@@ -15,7 +15,6 @@
   <script src="http://localhost/MUJ_Concept/toolkit/jquery.js"></script>
   <script src="http://localhost/MUJ_Concept/toolkit/jquery-ui.min.js"></script>
   <script src="http://localhost/MUJ_Concept/toolkit/bootstrap.min.js"></script>
-
 </head>
 
 

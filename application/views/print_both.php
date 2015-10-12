@@ -23,10 +23,11 @@
     </div>
 
 <div>
-    <?php
-    echo "<p><a href=\"" . base_url("Archives/index_eng") . "\">Message en anglais</a> </p>";
-    echo "<p><a href=\"" . base_url("Archives/index_fra") . "\">Messages en français</a> </p>";
-    ?>
+    <p class="text-center">
+     <a href=" <?php echo base_url("Archives/index_eng") ?>"><img src="http://localhost/MUJ_Concept/toolkit/img/eng2.png" width="50" height="57" alt="Message en Anglais"></a>
+     <a href=" <?php echo base_url("Archives/index_fra") ?>"><img src="http://localhost/MUJ_Concept/toolkit/img/fra2.png" width="50" height="57" alt="Message en Français"></a> 
+    </p>
+    
 </div>
     
 </div>

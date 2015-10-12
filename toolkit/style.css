@@ -10,6 +10,30 @@ body {
     text-align:center;
 }
 
+
+
+
+.modal-content {
+    background-color: #E2E4EF;
+    padding: 15px;
+    padding-left: 50px;
+}
+
+.modal-content input,.modal-content textarea  {
+    margin-bottom:10px;
+}
+
+.modal-content p input[type="submit"] {
+    margin-left: 40%;
+    margin-top: 20px;
+}
+
+img {
+    margin: 20px;
+}
+
+
+/*
 .modal-header {
    
     padding: 15px;
@@ -23,7 +47,27 @@ body {
 }
 .modal-body {
     padding: 15px;
-    position: relative;
+    //width:800px;
+   
+   // width:83.33333333%;
+   // position: relative;
+    
+}.modal {    
+    margin: auto;
+    margin-top: 60px;
+}*/
+p {
+    text-align: justify;
+}
+
+.paragraphe a {
+    text-decoration: none;
+    color: #333;
+}
+
+.years p {
+    margin-top: 20px;
+    text-align: center;
 }
 
 
@@ -37,6 +81,11 @@ body {
     border: 1px solid black;
     border-radius: 4px;
  //  font-size: 15px;
+}
+
+.paragraphe {
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 footer {
@@ -96,12 +145,6 @@ li {
     float:left;
 }
 
-.paragraphe {
-    margin-top: 50px;
-    margin-bottom: 50px;
-    text-align: left;
-}
-
 
 .print_unique {
     border:1px solid;
@@ -118,10 +161,7 @@ li {
     border:1px solid;
 }
 
-.modal-content {
-    background-color: #E2E4EF;
-    float: right;
-}
+
 
 /*.years {
     width: 300px;
