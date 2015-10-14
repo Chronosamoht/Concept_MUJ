@@ -11,12 +11,26 @@ body {
 }
 
 
-
-
+body.modal-open {
+    overflow: auto;
+}
+body.modal-open[style] {
+    padding-right: 0px !important;
+}
 .modal-content {
     background-color: #E2E4EF;
+  
+}
+.modal-content form {
     padding: 15px;
     padding-left: 50px;
+}
+
+.choosed {
+   margin-top: 50%;
+   min-height: 300px;
+   margin-left: -33.3333%;
+   width: 139%;
 }
 
 .modal-content input,.modal-content textarea  {
@@ -74,6 +88,7 @@ p {
 .paragraphe p {
     -webkit-transition: 0.5s; 
     transition: 0.5s;
+    padding: 0px;
 }
 
 .paragraphe p:hover {
@@ -143,11 +158,6 @@ li {
 
 .navbar .nav>li {
     float:left;
-}
-
-
-.print_unique {
-    border:1px solid;
 }
 
 .lead {

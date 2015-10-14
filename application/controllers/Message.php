@@ -20,11 +20,38 @@ class Message extends CI_Controller {
         $para = new Paragraphe();
         
         $para2 = $para->getPara($num_para, $id_message);
-          
-        $tab_para = array('text' => $para2->Text, 'concepts' => format_concept($para2->ID));
+        //$da = format_concept($para2->ID);
+        //var_dump($da);
+        //
+        //
+        $this->db->select('ID_concept');
+        $this->db->where('ID_para', $para2->ID);
+        $query = $this->db->get('tags');
+        $res = $query->result();
+        if(count($res)==0) {
+            $bla = "Il n'y a pas encore de concept associé à ce paragraphe.";
+        }else { 
+        
+        $tab_concept = array();
+   
+        foreach ( $res as $id) { 
+            array_push($tab_concept, $this->getconcept_byid($id->ID_concept));
+        }
+            $bla = "<ul> \n";
+            foreach ($tab_concept as $concept) {
+                $bla = $bla . "<li>" . $concept . "</li>\n";
+            }
        
+            $bla = $bla . "</ul>\n";
+        }
+      //  $tab_para = array('text' => $para2->Text, 'concepts' => $da);
+
+        $tab_para = array('text' => $para2->Text, 'concepts' => $bla);
+      
         $this->output->set_content_type('application/json')
         ->set_output(json_encode($tab_para));
+        
+       
 
     }
     
@@ -49,17 +76,16 @@ class Message extends CI_Controller {
         $this->db->select('ID_concept');
         $this->db->where('ID_para', $id_para);
         $query = $this->db->get('tags');
-
+        $res = $query->result();
+        if(count($res)==0) {
+            return "Il n'y a pas encore de concept associé à ce paragraphe.";
+        }else { 
+        
         $tab_concept = array();
    
-        foreach ( $query->result() as $id) {
+        foreach ( $res as $id) { 
             array_push($tab_concept, $this->getconcept_byid($id->ID_concept));
         }
-       
-        
-        if (count($tab_concept) == 0) {
-            return "Il n'y a pas encore de concept associé à ce paragraphe.";
-        } else {
             $bla = "<ul> \n";
             foreach ($tab_concept as $concept) {
                 $bla = $bla . "<li>" . $concept . "</li>\n";
