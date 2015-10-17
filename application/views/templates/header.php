@@ -11,10 +11,13 @@
     <link rel="stylesheet" href="http://localhost/MUJ_Concept/toolkit/jquery-ui.min.css">
 
     <link rel="stylesheet" href="http://localhost/MUJ_Concept/toolkit/style.css">
-<!-- Latest compiled and minified JavaScript -->
-  <script src="http://localhost/MUJ_Concept/toolkit/jquery.js"></script>
-  <script src="http://localhost/MUJ_Concept/toolkit/jquery-ui.min.js"></script>
-  <script src="http://localhost/MUJ_Concept/toolkit/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://localhost/MUJ_Concept/toolkit/choosen/chosen.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://localhost/MUJ_Concept/toolkit/jquery.js"></script>
+    <script src="http://localhost/MUJ_Concept/toolkit/jquery-ui.min.js"></script>
+    <script src="http://localhost/MUJ_Concept/toolkit/bootstrap.min.js"></script>
+    <script src="http://localhost/MUJ_Concept/toolkit/choosen/chosen.jquery.js"></script>
+
 </head>
 
 

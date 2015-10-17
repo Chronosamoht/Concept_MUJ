@@ -30,7 +30,13 @@ class Message_muj extends CI_Model {
 
         return TRUE;
     }
-       
+
+    function addConcept($concept) {
+        $this->db->set('Name', $concept['concept']);
+        $this->db->insert('concepts');
+
+        return TRUE;
+    }
 
     function getIDmessage($date, $id_lang) {
 
@@ -51,10 +57,10 @@ class Message_muj extends CI_Model {
         $tab_paragraphs = explode("\n", $text);
 
         foreach ($tab_paragraphs as $para) {
-           if (str_word_count($para) > 0) {
+            if (str_word_count($para) > 0) {
                 $this->db->set('text', $para);
                 $this->db->set('ID_MESSAGE', $id_message);
-                
+
                 $this->db->insert('paragraphe');
             }
         }

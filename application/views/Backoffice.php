@@ -1,4 +1,4 @@
-<div class="modal-content">
+
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 echo "<h2 class=\"text-muted\" > Backoffice </h2>";
@@ -8,7 +8,9 @@ echo "<h2 class=\"text-muted\" > Backoffice </h2>";
         $("#date").datepicker();
     });
 </script>
+<p><a href="<?php echo base_url("Backoffice/addConcept") ?>">Ajout de Concept</a> </p>
 
+<div class="modal-content">
 <?php
 // Change the css classes to suit your needs    
 echo validation_errors();
@@ -26,7 +28,7 @@ echo form_open('../Backoffice/', $attributes);
 </p>
 
 <p>
-    <label class="text-info" for="adresse">Adressé à : (Exemple : "Adressé aux bahais d'Iran" en entier) <span class="required">*</span></label>
+    <label class="text-info" for="adresse">Adressé à : <span class="required">*</span></label>
     <?php echo form_error('adresse'); ?>
     <br /><input id="adresse" type="text" class="form-control" name="adresse" maxlength="50" value="<?php echo set_value('adresse'); ?>"  />
 </p>
@@ -48,8 +50,10 @@ echo form_open('../Backoffice/', $attributes);
 </p>
 
 <p>
-    <?php echo form_submit(array('name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-primary  btn-lg')); ?>
+    <?php echo form_submit(array('name' => 'muj', 'value' =>'Submit', 'class' => 'btn btn-primary  btn-lg')); ?>
 </p>
  
 <?php echo form_close(); ?>
 </div>
+
+

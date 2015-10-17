@@ -11,16 +11,13 @@
 
         $.ajax({
             url: '<?php echo base_url(); ?>Message/ajax_fetchpara',
-            
             //url : 'http://localhost/MUJ_Concept/application/views/ajax_fetchpara.php', // Le nom du script a changé, c'est send_mail.php maintenant !
             type: 'POST', // Le type de la requête HTTP, ici devenu POST
             data: {num_para: num_para, id_message: <?php echo $message->ID; ?>},
-                    
             dataType: "json",
-           
             success: function (data) {
-               
-               
+
+
                 //var b = JSON.parse(data);
                 var para = data.text;
                 var concepts = data.concepts;
@@ -55,7 +52,6 @@
 </div><!-- /.modal -->
 
 <?php
-
 // echo "<p>Adressé ".$message->Adresse."</p>";
 if ($message->ID_LANG == 1) {
     setlocale(LC_TIME, 'fr_FR.utf8', 'fra');

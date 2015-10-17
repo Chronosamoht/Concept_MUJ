@@ -24,6 +24,7 @@ body.modal-open[style] {
 .modal-content form {
     padding: 15px;
     padding-left: 50px;
+    margin-bottom: 30px;
 }
 
 .choosed {
