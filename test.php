@@ -31,7 +31,7 @@
 </textarea>
       <h2><a name="multiple-select" class="anchor" href="#multiple-select">Multiple Select</a></h2>
 
-    <select data-placeholder="Choose a Country..." class="chosen-select" multiple style="width:350px;" tabindex="4">
+    <select name="data[]" data-placeholder="Choose a Country..." class="chosen-select" multiple style="width:350px;" tabindex="4">
             <option value=""></option>
             <option value="United States">United States</option>
             <option value="United Kingdom">United Kingdom</option>
@@ -60,6 +60,12 @@
     
 <input type="submit">
 </form>
+
+<?php
+
+    var_dump($_POST);
+
+?>
 
 </body>
 </html>

@@ -50,6 +50,32 @@ class Message_muj extends CI_Model {
 
         return intval($res[0]->ID);
     }
+    
+    function getmessagebyID($id_mess) {
+
+        //     $query = $this->db->query('SELECT ID FROM message WHERE Date='.$date.' AND ID_LANG='.$id_lang.';');
+        $this->db->select('ID, Date, Adresse');
+        $this->db->where('ID', $id_mess);
+        $query = $this->db->get('message');
+
+        return $query->result();
+    }
+    
+    
+    function getmessagesbyyears($tabyears) {
+        $query = "SELECT ID, Date, Adresse FROM message WHERE ID_LANG =1 ";
+         if(!empty($tabyears)) {
+            $where = "AND ( 0=1 ";
+            foreach($tabyears as $a) {
+                $where = $where . " OR Date LIKE '" . $a . "%'";
+            }
+            $query = $query . $where . ")";
+        } 
+        
+        $res = $this->db->query($query);
+        return $res->result();
+    }
+    
 
     function save_paragraph($text, $id_message) {
 

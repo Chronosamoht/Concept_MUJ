@@ -10,6 +10,13 @@ echo "<h2 class=\"text-muted\" > Recherche </h2>"; ?>
         $(".chosen-select").chosen({max_selected_options: 5});
         $(".chosen-select").chosen({no_results_text: "Désolé, ce concept n'existe pas. LINK HERE Souhaitez vous le proposer ?(NOPE LOL)"}); 
     });
+    $(document).ready(function(){
+     // $("option").attr("value") = $("option").attr("text");
+});
+      
+        
+    
+    
 </script>
 
 <p class="text-info"> La recherche est basée sur les textes français. Aucun des champs n'est requis pour la recherche.</p>
@@ -18,22 +25,22 @@ echo "<h2 class=\"text-muted\" > Recherche </h2>"; ?>
 
 
 <p>
-    <label for="recheche">Type de recherche :</label>
+    <label for="recheche">Je recherche :</label>
     <?php echo form_error('recherche'); ?>
 
 <?php // Change or Add the radio values/labels/css classes to suit your needs  ?>
     
-    <label class="checkbox-inline" for="recheche" class=""><input id="recherche" name="recherche" type="radio" checked="checked" class="" value="message" <?php echo $this->form_validation->set_radio('recherche', 'message'); ?> />Message</label>
+    <label class="checkbox-inline" for="recheche" class=""><input id="recherche" name="recherche" type="radio" class="" value="message" <?php echo $this->form_validation->set_radio('recherche', 'message'); ?> />Un message</label>
 
     
-    <label class="checkbox-inline" for="recheche" class=""><input id="recherche" name="recherche" type="radio" class="" value="paragraphe" <?php echo $this->form_validation->set_radio('recherche', 'paragraphe'); ?> />Paragraphe</label>
+    <label class="checkbox-inline" for="recheche" class=""><input id="recherche" name="recherche" type="radio" checked class="" value="paragraphe" <?php echo $this->form_validation->set_radio('recherche', 'paragraphe'); ?> />Un paragraphe</label>
 </p>
 
 
 <p>
     <label for="annee">Année(s) :</label>
 <?php echo form_error('annee'); ?>
-    <br /><?php echo form_dropdown(array('name' => 'annee', 'options' =>$years, 'value' =>set_value('annee'),'data-placeholder'=>' ', 'class' =>'chosen-select', 'multiple'=>'multiple', 'style'=> 'width:350px', 'tabindex'=>'4'));?>
+    <br /><?php echo form_multiselect(array('name' => 'annee[]', 'options' =>$years, 'value' =>set_value('annee'),'data-placeholder'=>' ', 'class' =>'chosen-select', 'style'=> 'width:300px', 'tabindex'=>'4'));?>
    
 </p>
 
@@ -44,7 +51,7 @@ echo "<h2 class=\"text-muted\" > Recherche </h2>"; ?>
     <?php // Change the values in this array to populate your dropdown as required ?>
     <br /><?php 
    
-     echo form_dropdown(array('name' => 'concepts', 'options' =>$concepts, 'value' =>set_value('concepts'),'data-placeholder'=>' ', 'class' =>'chosen-select', 'multiple'=>'multiple', 'style'=> 'width:350px', 'tabindex'=>'4'));
+     echo form_multiselect(array('name' => 'concepts[]', 'options' =>$concepts, 'value' =>set_value('concepts'),'data-placeholder'=>' ', 'class' =>'chosen-select', 'style'=> 'width:300px', 'tabindex'=>'4'));
             
             ?>
 </p>                                             
