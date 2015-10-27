@@ -16,6 +16,17 @@ class Paragraphe extends CI_Model {
         return $res[$num_para];
     }
 
+
+    public function getparas_bytext($text) {
+        $res = $this->db->query("SELECT ID, ID_MESSAGE, Text FROM paragraphe WHERE Text Like '%$text%'");
+        $tab = array();
+        foreach ($res->result() as $value) {
+            array_push($tab, serialize($value));
+        }
+        
+        return $tab;
+    }
+    
     public function getparasbyidmess($id) {
         $res = $this->db->query("SELECT ID, ID_MESSAGE, Text FROM paragraphe WHERE ID_MESSAGE=$id");
         return $res->result();
@@ -30,6 +41,8 @@ class Paragraphe extends CI_Model {
 
         return FALSE;
     }
+    
+    
 
 }
 

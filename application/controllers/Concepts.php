@@ -13,6 +13,7 @@ class Concepts extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('Message_muj');
         $this->load->model('Paragraphe');
+        $this->load->model('Concept');
     }
 
     function index() {
@@ -31,7 +32,7 @@ class Concepts extends CI_Controller {
             redirect('Concept/result');
         }
     }
-    
+
     public function result() {
         $form_data = array(
             'recherche' => set_value('recherche'),
@@ -40,20 +41,20 @@ class Concepts extends CI_Controller {
             'texte' => set_value('texte')
         );
         //$annee = $form_data['annee'];
-        if($form_data['recherche']=='message') {
-           // var_dump($form_data['annee']);
-           $res = $this->recherche_message($form_data['annee'],$form_data['concepts'],$form_data['texte']);
+        if ($form_data['recherche'] == 'message') {
+            // var_dump($form_data['annee']);
+            $res = $this->recherche_message($form_data['annee'], $form_data['concepts'], $form_data['texte']);
             var_dump($res);
         } else {
-            $res = $this->recherche_paragraphe($form_data['annee'],$form_data['concepts'],$form_data['texte']);
+            $res = $this->recherche_paragraphe($form_data['annee'], $form_data['concepts'], $form_data['texte']);
             var_dump($res);
         }
-       
+
         // run insert model to write data to db
 
-      
+
         $this->load->view('templates/header');
-          echo 'this form has been successfully submitted with all validation being passed. All messages or logic here. Please note
+        echo 'this form has been successfully submitted with all validation being passed. All messages or logic here. Please note
 			sessions have not been used and would need to be added in to suit your app';
         var_dump($form_data);
         $this->load->view('templates/footer');
@@ -62,19 +63,32 @@ class Concepts extends CI_Controller {
     public function recherche_message($tab_annee, $concepts, $texte) {
 
         $query = "SELECT ID, Date, Adresse FROM message WHERE ID_LANG =1 ";
-        if(!empty($tab_annee)) {
-             $where = "AND (0=1 ";
-            foreach($tab_annee as $a) {
+        if (!empty($tab_annee)) {
+            $where = "AND (0=1 ";
+            foreach ($tab_annee as $a) {
                 $where = $where . " OR Date LIKE '" . $a . "%'";
             }
             $query = $where . ")";
-        } 
-        
+        }
+
         $res = $this->db->query($query);
         return $res->result();
     }
-    
-    
+
+    public function is_set($a, $c, $t) {
+        $r = 0;
+        if ($a != '') {
+            $r = $r + 100;
+        }
+        if ($c != '') {
+            $r = $r + 10;
+        }
+        if ($t != '') {
+            $r = $r + 1;
+        }
+        return $r;
+    }
+
     public function recherche_paragraphe($annee, $concepts, $texte) {
 //        $query = "SELECT ID, ID_Message, Text FROM Paragraphe WHERE ID_LANG =1 AND (";
 //        if(isset($annee)) {
@@ -82,29 +96,73 @@ class Concepts extends CI_Controller {
 //        }        
 //        $res = $this->db->query($query);
 //        return $res->result();
-        
-        return $this->getparas_byyears($annee);
+        $r = $this->is_set($annee, $concepts, $texte);
+
+        switch ($r) {
+            case 100:
+                return $this->getparas_byyears($annee);
+
+            case 110:
+                return array_intersect($this->getparas_byconcepts($concepts), $this->getparas_byyears($annee));
+
+            case 101:
+                return array_intersect($this->getparas_byyears($annee), $this->Paragraphe->getparas_bytext($texte));
+
+            case 111:
+                return array_intersect($this->getparas_byconcepts($concepts), array_intersect($this->getparas_byyears($annee), $this->Paragraphe->getparas_bytext($texte)));
+
+            case 10:
+                return $this->getparas_byconcepts($concepts);
+
+            case 11:
+                return array_intersect($this->getparas_byconcepts($concepts), $this->Paragraphe->getparas_bytext($texte));
+
+            case 1:
+                return $this->Paragraphe->getparas_bytext($texte);
+            default:
+                return $this->Paragraphe->getparas_bytext(' ');
+        }
+
+
+//        if($annee != '' ) {
+//            $res1 = 
+//        }
+//        if($concepts != '') {
+//            $res2 = $this->getparas_byconcepts($concepts);
+//        }
+//        if($texte != '' ) {
+//            $res3 = $this->Paragraphe->getparas_bytext($texte);
+//        }
+//        
     }
 
     public function getparas_byyears($tabyear) {
         $res = $this->Message_muj->getmessagesbyyears($tabyear);
         $tab = array();
-        foreach($res as $mess) {
-           array_push($tab, $this->Paragraphe->getparasbyidmess(intval($mess->ID)));
+        foreach ($res as $mess) {
+            $para_mess = $this->Paragraphe->getparasbyidmess(intval($mess->ID));
+            foreach ($para_mess as $para) {
+                array_push($tab, serialize($para));
+            }
         }
+
         return array_filter($tab);
     }
-    
-//    
-//    function fectchconceptby_idmess($id, $tabconcept) {
-//        $tab = $this->getparabyidmess($id);
-//        foreach($tab as $as) {
-//            // push($nb_clics, fetchconceptbypara());
-//        }
-//        // sum($key => Name $value => Nbclics);
-//        
-//        return $tab;
-//    }
+
+    function getparas_byconcepts($tabconcepts) {
+        $tab = array();
+        foreach ($tabconcepts as $concept) {
+            $a = $this->Concept->getparas_byconcept($concept);
+            foreach ($a as $aa) {
+                array_push($tab, serialize($aa));
+            }
+        }
+
+        // sum($key => Name $value => Nbclics);
+
+        return $tab;
+    }
+
 //    
 //    function fetchconceptbypara($idpara, $tab_concepts) {
 //        $res = "SELECT ID_Concepts FROM concepts where Name =$tab_concepts";
@@ -115,9 +173,9 @@ class Concepts extends CI_Controller {
 //        
 //        
 //    }
-    
-    
-    
+
+
+
     public function getAllConcepts() {
         $this->db->select('Name');
         $query = $this->db->get('concepts');
@@ -143,6 +201,5 @@ class Concepts extends CI_Controller {
         $years = array_unique($year);
         return array_combine($years, $years);
     }
-
 
 }
