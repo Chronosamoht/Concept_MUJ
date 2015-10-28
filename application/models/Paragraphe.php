@@ -27,11 +27,34 @@ class Paragraphe extends CI_Model {
         return $tab;
     }
     
+    
+    public function fetch_paragraphs($id_message) {
+        $this->db->select('Text');
+        $this->db->where('ID_MESSAGE', $id_message);
+        $query = $this->db->get('paragraphe');
+
+        $tab_text = [];
+        foreach ($query->result() as $dude) {
+            array_push($tab_text, $dude->Text);
+        }
+
+        return $tab_text;
+    }
+    
+    
     public function getparasbyidmess($id) {
         $res = $this->db->query("SELECT ID, ID_MESSAGE, Text FROM paragraphe WHERE ID_MESSAGE=$id");
         return $res->result();
     }
 
+    
+    
+    public function getparabyid($id) {
+        $res = $this->db->query("SELECT ID, ID_MESSAGE, Text FROM paragraphe WHERE ID='$id'");
+        return $res->result()[0];
+    }
+    
+    
     function SaveForm($data) {
         $this->db->insert('paragraphe', $data);
 

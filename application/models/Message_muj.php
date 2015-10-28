@@ -31,11 +31,71 @@ class Message_muj extends CI_Model {
         return TRUE;
     }
 
-    function addConcept($concept) {
-        $this->db->set('Name', $concept['concept']);
-        $this->db->insert('concepts');
+    
 
-        return TRUE;
+    function getAllyears() {
+        $this->db->select('Date');
+        $query = $this->db->get('message');
+
+        $year = array();
+
+        foreach ($query->result() as $row) {
+
+            array_push($year, substr($row->Date, 0, 4));
+        }
+        $years = array_unique($year);
+        return array_combine($years, $years);
+    }
+    
+    
+    function getyears() {
+        $this->db->distinct('Date');
+        $query = $this->db->get('message');
+
+        $dates = '';
+
+        foreach ($query->result() as $row) {
+            $year = substr($row->Date, 0, 4);
+            $dates = $dates . ',' . $year;
+        }
+
+
+        return substr($dates, 1);
+    }
+    
+    public function byyear($year) {
+
+        $this->db->like('Date', $year, 'after');
+        $query = $this->db->get('message');
+
+        $tab_mess = array();
+
+        foreach ($query->result() as $row) {
+            $tab_paragraphs = explode(',', $this->fetch_paragraphs($row->ID));
+            array_push($tab_mess, array('para' => $tab_paragraphs, 'mess' => $row));
+        }
+
+        $tab_year = array_unique(explode(',', $this->getyears()));
+        sort($tab_year);
+
+        $this->load->view('print_by_year', array('tab_mess' => $tab_mess, 'years' => $tab_year));
+    }
+    
+    
+     public function get_last_messages() {
+
+        $this->db->select_max('Date');
+        $query = $this->db->get('message');
+        $res = $query->result();
+        $this->db->select();
+        $this->db->where('Date', $res[0]->Date);
+        $query2 = $this->db->get('message');
+
+        $res2 = $query2->result();
+        $messagefra = $res2[0];
+        $messageeng = $res2[1];
+
+        return array('fra' => $messagefra, 'eng' => $messageeng);
     }
 
     function getIDmessage($date, $id_lang) {

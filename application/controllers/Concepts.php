@@ -16,6 +16,42 @@ class Concepts extends CI_Controller {
         $this->load->model('Concept');
     }
 
+    
+    
+    
+    function ajax_fetchpara() {
+        $num_para = $this->input->post('num_para');
+        
+        $para = $this->Paragraphe->getparabyid($num_para);
+
+        $res = $this->Concept->getidconcept_byidpara($num_para);
+        
+        if(count($res)==0) {
+            $bla = "Il n'y a pas encore de concept associé à ce paragraphe.";
+        }else { 
+        
+        $tab_concept = array();
+   
+        foreach ( $res as $id) { 
+            array_push($tab_concept, $this->getconcept_byid($id->ID_concept));
+        }
+            $bla = "<ul> \n";
+            foreach ($tab_concept as $concept) {
+                $bla = $bla . "<li>" . $concept . "</li>\n";
+            }
+       
+            $bla = $bla . "</ul>\n";
+        }
+      //  $tab_para = array('text' => $para2->Text, 'concepts' => $da);
+
+        $tab_para = array('text' => $para->Text, 'concepts' => $bla);
+      
+        $this->output->set_content_type('application/json')
+        ->set_output(json_encode($tab_para));
+
+    }
+    
+    
     function index() {
         $this->form_validation->set_rules('recheche', 'Recheche', '');
         $this->form_validation->set_rules('annee', 'Année', '');
@@ -26,7 +62,7 @@ class Concepts extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE) { // validation hasn't been passed
             $this->load->view('templates/header');
-            $this->load->view('recherche', array('concepts' => $this->getAllConcepts(), 'years' => $this->getAllyears()));
+            $this->load->view('recherche', array('concepts' => $this->Concept->getAllConcepts(), 'years' => $this->Message_muj->getAllyears()));
             $this->load->view('templates/footer');
         } else {
             redirect('Concept/result');
@@ -47,15 +83,16 @@ class Concepts extends CI_Controller {
             var_dump($res);
         } else {
             $res = $this->recherche_paragraphe($form_data['annee'], $form_data['concepts'], $form_data['texte']);
-            var_dump($res);
         }
 
         // run insert model to write data to db
-
+        $res1 = array();
+        foreach ($res as $v) {
+            array_push($res1, unserialize($v));
+        }
 
         $this->load->view('templates/header');
-        echo 'this form has been successfully submitted with all validation being passed. All messages or logic here. Please note
-			sessions have not been used and would need to be added in to suit your app';
+        $this->load->view('templates/print_search', array('para' => $res1));
         var_dump($form_data);
         $this->load->view('templates/footer');
     }
@@ -176,30 +213,5 @@ class Concepts extends CI_Controller {
 
 
 
-    public function getAllConcepts() {
-        $this->db->select('Name');
-        $query = $this->db->get('concepts');
-
-        $tab_name = array();
-        foreach ($query->result() as $val) {
-            array_push($tab_name, $val->Name);
-        }
-        unset($tab_name[0]);
-        return array_combine($tab_name, $tab_name);
-    }
-
-    function getAllyears() {
-        $this->db->select('Date');
-        $query = $this->db->get('message');
-
-        $year = array();
-
-        foreach ($query->result() as $row) {
-
-            array_push($year, substr($row->Date, 0, 4));
-        }
-        $years = array_unique($year);
-        return array_combine($years, $years);
-    }
 
 }

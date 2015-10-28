@@ -2,13 +2,6 @@
 <script>
 
     function show_para(num_para) {
-
-        //alert($num_para +1);
-//    var id = '';
-//    alert(id
-//    
-
-
         $.ajax({
             url: '<?php echo base_url(); ?>Message/ajax_fetchpara',
             //url : 'http://localhost/MUJ_Concept/application/views/ajax_fetchpara.php', // Le nom du script a changé, c'est send_mail.php maintenant !
@@ -16,13 +9,9 @@
             data: {num_para: num_para, id_message: <?php echo $message->ID; ?>},
             dataType: "json",
             success: function (data) {
-
-
                 //var b = JSON.parse(data);
                 var para = data.text;
                 var concepts = data.concepts;
-                console.log(para);
-                console.log(concepts);
                 $(".modal-title").text("Paragraphe n°" + (num_para + 1));
                 $(".modal-paragraph").html("<p>" + para + "</p>\n");
                 $(".modal-concepts").html("<p>" + concepts + "</p>\n");
