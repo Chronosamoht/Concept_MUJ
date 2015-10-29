@@ -25,8 +25,7 @@ class Backoffice extends CI_Controller {
             $this->load->view('templates/header');
             $this->load->view('backoffice');
             $this->load->view('templates/footer');
-        } else { // passed validation proceed to post success logic
-// build array for the model
+        } else {
             $form_data = array(
                 'date' => set_value('date'),
                 'adresse' => set_value('adresse'),
@@ -34,20 +33,20 @@ class Backoffice extends CI_Controller {
                 'anglais' => set_value('anglais')
             );
 
-// run insert model to write data to db
 
+            is_save($this->Message_muj->SaveForm($form_data));
+        }
+    }
 
-            if ($this->Message_muj->SaveForm($form_data) == TRUE) { // the information has therefore been successfully saved in the db
-                $this->load->view('templates/header');
-                $this->load->view('templates/OK_form');
-                $this->load->view('templates/footer');
-            } else {
-
-                $this->load->view('templates/header');
-                $this->load->view('templates/error_form');
-                $this->load->view('templates/footer');
-// Or whatever error handling is necessary
-            }
+    function is_save($form) {
+        if ($form == TRUE) {
+            $this->load->view('templates/header');
+            $this->load->view('templates/OK_form');
+            $this->load->view('templates/footer');
+        } else {
+            $this->load->view('templates/header');
+            $this->load->view('templates/error_form');
+            $this->load->view('templates/footer');
         }
     }
 
@@ -60,53 +59,14 @@ class Backoffice extends CI_Controller {
             $this->load->view('templates/header');
             $this->load->view('backoffice_add_concept');
             $this->load->view('templates/footer');
-        } else { // passed validation proceed to post success logic
-// build array for the model
+        } else {
+
             $form_data = array(
                 'concept' => set_value('concept')
             );
 
-// run insert model to write data to db
-
-            if ($this->Message_muj->addConcept($form_data) == TRUE) { // the information has therefore been successfully saved in the db
-                $this->load->view('templates/header');
-                $this->load->view('templates/OK_form');
-                $this->load->view('templates/footer');
-            } else {
-
-                $this->load->view('templates/header');
-                $this->load->view('templates/error_form');
-                $this->load->view('templates/footer');
-// Or whatever error handling is necessary
-            }
+            is_save($this->Message_muj->addConcept($form_data));
         }
     }
 
 }
-
-/*
-  public function form_MUJ()
-  {
-  $this->load->library('form_validation');
-  $this->load->view('templates/header');
-
-  if ($this->form_validation->run() == FALSE)
-  {
-
-  $this->load->view('Backoffice');
-  }
-  else
-  {
-
-  $dat = $this->input->post('datepicker');
-
-  $data = array('datepicker' => $dat);
-
-  $this->load->view('backvalide', $data);
-  }
-  $this->load->view('templates/footer');
-  }
-
-  }
- */
-?>

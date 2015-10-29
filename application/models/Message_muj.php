@@ -156,4 +156,3 @@ class Message_muj extends CI_Model {
 
 }
 
-?>

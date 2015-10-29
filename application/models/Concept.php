@@ -26,6 +26,13 @@ class Concept extends CI_Model {
         return TRUE;
     }
     
+    function getconcept_byid($idconcept) {
+        $this->db->select('Name');
+        $this->db->where('ID', $idconcept);
+        $query = $this->db->get('concepts');
+        return $query->result()[0]->Name;
+    }
+    
     function getidconcept_byidpara($id) {
         $this->db->select('ID_concept');
         $this->db->where('ID_para', $id);
@@ -33,10 +40,7 @@ class Concept extends CI_Model {
         
         return $query->result();
     }
-    
-    
-    
-    
+
     function getparas_byconcept($concept) {      
         
         $res = $this->db->query("SELECT p.ID, p.ID_MESSAGE, p.Text "

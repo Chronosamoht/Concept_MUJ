@@ -16,9 +16,6 @@ class Concepts extends CI_Controller {
         $this->load->model('Concept');
     }
 
-    
-    
-    
     function ajax_fetchpara() {
         $num_para = $this->input->post('num_para');
         
@@ -33,7 +30,7 @@ class Concepts extends CI_Controller {
         $tab_concept = array();
    
         foreach ( $res as $id) { 
-            array_push($tab_concept, $this->getconcept_byid($id->ID_concept));
+            array_push($tab_concept, $this->Concept->getconcept_byid($id->ID_concept));
         }
             $bla = "<ul> \n";
             foreach ($tab_concept as $concept) {
@@ -93,7 +90,6 @@ class Concepts extends CI_Controller {
 
         $this->load->view('templates/header');
         $this->load->view('templates/print_search', array('para' => $res1));
-        var_dump($form_data);
         $this->load->view('templates/footer');
     }
 
@@ -127,12 +123,7 @@ class Concepts extends CI_Controller {
     }
 
     public function recherche_paragraphe($annee, $concepts, $texte) {
-//        $query = "SELECT ID, ID_Message, Text FROM Paragraphe WHERE ID_LANG =1 AND (";
-//        if(isset($annee)) {
-//            $a = $this->getparas_byyears($annee);
-//        }        
-//        $res = $this->db->query($query);
-//        return $res->result();
+
         $r = $this->is_set($annee, $concepts, $texte);
 
         switch ($r) {
@@ -160,17 +151,6 @@ class Concepts extends CI_Controller {
                 return $this->Paragraphe->getparas_bytext(' ');
         }
 
-
-//        if($annee != '' ) {
-//            $res1 = 
-//        }
-//        if($concepts != '') {
-//            $res2 = $this->getparas_byconcepts($concepts);
-//        }
-//        if($texte != '' ) {
-//            $res3 = $this->Paragraphe->getparas_bytext($texte);
-//        }
-//        
     }
 
     public function getparas_byyears($tabyear) {
@@ -195,23 +175,9 @@ class Concepts extends CI_Controller {
             }
         }
 
-        // sum($key => Name $value => Nbclics);
+      
 
         return $tab;
     }
-
-//    
-//    function fetchconceptbypara($idpara, $tab_concepts) {
-//        $res = "SELECT ID_Concepts FROM concepts where Name =$tab_concepts";
-//        
-//        // recupérer une liste ($nbclics, $nameconcepts) en finction de l'id et de la table de concepts
-//        
-//       //"SELECT nb_clics form tags where ID_para=$idpara and ID_concept = $res->result()";
-//        
-//        
-//    }
-
-
-
 
 }
