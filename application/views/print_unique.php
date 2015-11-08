@@ -10,12 +10,14 @@
         <?php
         if (isset($id_reverse)) {
             $url = base_url("Archives/byid/$id_reverse");
+            $url_both = base_url("Archives/both_byid/$message->ID/$id_reverse");
         } else {
             if ($message->ID_LANG == 1) {
                 $url = base_url("Archives/index_eng");
             } else {
                 $url = base_url("Archives/index_fra");
             }
+            $url_both = base_url("Archives/index_both");
         }
 
         if ($message->ID_LANG == 1) {
@@ -24,7 +26,7 @@
         <?php } else { ?>
             <a href=" <?php echo $url ?>"><img src="http://localhost/MUJ_Concept/toolkit/img/fra2.png" width="50" height="57" alt="Message en Français"></a> 
         <?php } ?>
-        <a href=" <?php echo base_url("Archives/index_both") ?>"><img src="http://localhost/MUJ_Concept/toolkit/img/bothv3.png" width="50" height="57" alt="Messages côte à côte"> </a>
+        <a href=" <?php echo $url_both ?>"><img src="http://localhost/MUJ_Concept/toolkit/img/bothv3.png" width="50" height="57" alt="Messages côte à côte"> </a>
 
     </p>
 
