@@ -12,7 +12,7 @@
                 //var b = JSON.parse(data);
                 var para = data.text;
                 var concepts = data.concepts;
-                $(".modal-title").text("Paragraphe n°" + (num_para + 1));
+                $(".modal-title").text("Paragraphe n°" + (num_para));
                 $(".modal-paragraph").html("<p>" + para + "</p>\n");
                 $(".modal-concepts").html("<p>" + concepts + "</p>\n");
 
@@ -42,21 +42,21 @@
 
 <?php
 // echo "<p>Adressé ".$message->Adresse."</p>";
-if ($message->ID_LANG == 1) {
+if (isset($message->ID_LANG) && $message->ID_LANG == 1) {
     setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
     echo "<h3> Message du " . mdate("%j ", strtotime($message->Date)) . strftime("%B %Y", strtotime($message->Date)) . " </h3> ";
 } else {
+    setlocale(LC_TIME, 'en_US.UTF-8', 'eng');
     echo "<h3> Message of the " . mdate("%j ", strtotime($message->Date)) . ucfirst(strftime("%B %Y", strtotime($message->Date))) . " </h3>";
 }
 
 echo "<div class=\"paragraphe\">\n";
 $i = 0;
-
 foreach ($para as $value) {
     // <p class="lead">Paragraphe $i</p>
-    echo "<a data-toggle=\"modal\" href=\"#para\"><p onclick=\"show_para($i)\" >" . $value . "</p> </a> \n";
-
     $i++;
+    echo "<a data-toggle=\"modal\" href=\"#para\"><p onclick=\"show_para($i)\" >" . $value . "</p> </a> \n";
+    
 }
 ?>
 

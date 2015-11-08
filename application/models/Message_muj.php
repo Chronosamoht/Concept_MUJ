@@ -31,8 +31,6 @@ class Message_muj extends CI_Model {
         return TRUE;
     }
 
-    
-
     function getAllyears() {
         $this->db->select('Date');
         $query = $this->db->get('message');
@@ -46,8 +44,7 @@ class Message_muj extends CI_Model {
         $years = array_unique($year);
         return array_combine($years, $years);
     }
-    
-    
+
     function getyears() {
         $this->db->distinct('Date');
         $query = $this->db->get('message');
@@ -62,7 +59,7 @@ class Message_muj extends CI_Model {
 
         return substr($dates, 1);
     }
-    
+
     public function byyear($year) {
 
         $this->db->like('Date', $year, 'after');
@@ -80,9 +77,8 @@ class Message_muj extends CI_Model {
 
         $this->load->view('print_by_year', array('tab_mess' => $tab_mess, 'years' => $tab_year));
     }
-    
-    
-     public function get_last_messages() {
+
+    public function get_last_messages() {
 
         $this->db->select_max('Date');
         $query = $this->db->get('message');
@@ -99,47 +95,46 @@ class Message_muj extends CI_Model {
     }
 
     function getIDmessage($date, $id_lang) {
-
-        //     $query = $this->db->query('SELECT ID FROM message WHERE Date='.$date.' AND ID_LANG='.$id_lang.';');
-        $this->db->select('ID');
-        $this->db->where('Date', $date);
-
-        $this->db->where('ID_LANG', $id_lang);
-        $query = $this->db->get('message');
-        $res = $query->result();
-
-        return intval($res[0]->ID);
+        $res = $this->db->query("SELECT ID FROM message WHERE Date='$date' AND ID_LANG=$id_lang");
+        return $res->result()[0]->ID;
     }
-    
+
     function getmessagebyID($id_mess) {
 
         //     $query = $this->db->query('SELECT ID FROM message WHERE Date='.$date.' AND ID_LANG='.$id_lang.';');
-        $this->db->select('ID, Date, Adresse');
+        $this->db->select('ID, ID_LANG, Date, Adresse');
         $this->db->where('ID', $id_mess);
         $query = $this->db->get('message');
 
-        return $query->result();
+        return $query->result()[0];
     }
-    
-    
+
+    function getID_reverselang($id_mess) {
+        $mess = $this->getmessagebyID($id_mess);
+        if($mess->ID_LANG==1) {
+            $l = 2;
+        } else {
+            $l = 1;
+        }
+
+        return $this->getIDmessage($mess->Date, $l);
+    }
+
     function getmessagesbyyears($tabyears) {
         $query = "SELECT ID, Date, Adresse FROM message WHERE ID_LANG =1 ";
-         if(!empty($tabyears)) {
+        if (!empty($tabyears)) {
             $where = "AND ( 0=1 ";
-            foreach($tabyears as $a) {
+            foreach ($tabyears as $a) {
                 $where = $where . " OR Date LIKE '" . $a . "%'";
             }
             $query = $query . $where . ")";
-        } 
-        
+        }
+
         $res = $this->db->query($query);
         return $res->result();
     }
-    
 
     function save_paragraph($text, $id_message) {
-
-
         $tab_paragraphs = explode("\n", $text);
 
         foreach ($tab_paragraphs as $para) {
@@ -155,4 +150,3 @@ class Message_muj extends CI_Model {
     }
 
 }
-

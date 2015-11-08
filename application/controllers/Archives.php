@@ -15,9 +15,15 @@ class Archives extends CI_Controller {
         $this->load->model('Concept');
     }
 
-    public function print_unique($message, $tab_year) {
+    public function print_unique($message, $tab_year, $byid = false) {
         $tab_paragraphs = $this->Paragraphe->fetch_paragraphs($message->ID);
-        $this->load->view('print_unique', array('para' => $tab_paragraphs, 'message' => $message, 'years' => $tab_year));
+        $id_reverse = $this->Message_muj->getID_reverselang($message->ID);
+        if($byid) {
+            $this->load->view('print_unique', array('para' => $tab_paragraphs, 'message' => $message, 'years' => $tab_year, 'id_reverse' => $id_reverse));
+        } else {
+            $this->load->view('print_unique', array('para' => $tab_paragraphs, 'message' => $message, 'years' => $tab_year));
+        }
+        
     }
 
     public function print_both($message, $tab_year) {
@@ -58,6 +64,14 @@ class Archives extends CI_Controller {
         $tab_messages = $this->Message_muj->get_last_messages();
 
         $this->print_both($tab_messages, $tab_year);
+    }
+    
+    
+    public function byid($idmess) {
+        $mess = $this->Message_muj->getmessagebyID($idmess);
+        $tab_year = array_unique(explode(',', $this->Message_muj->getyears()));
+        $this->print_unique($mess, $tab_year, true);
+        
     }
 
 }

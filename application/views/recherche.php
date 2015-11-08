@@ -30,10 +30,10 @@ echo "<h2 class=\"text-muted\" > Recherche </h2>"; ?>
 
 <?php // Change or Add the radio values/labels/css classes to suit your needs  ?>
     
-    <label class="checkbox-inline" for="recheche" class=""><input id="recherche" name="recherche" type="radio" class="" value="message" <?php echo $this->form_validation->set_radio('recherche', 'message'); ?> />Un message</label>
+    <label class="checkbox-inline" for="recheche" class=""><input id="recherche" name="recherche" type="radio" checked class="" value="message" <?php echo $this->form_validation->set_radio('recherche', 'message'); ?> />Un message</label>
 
     
-    <label class="checkbox-inline" for="recheche" class=""><input id="recherche" name="recherche" type="radio" checked class="" value="paragraphe" <?php echo $this->form_validation->set_radio('recherche', 'paragraphe'); ?> />Un paragraphe</label>
+    <label class="checkbox-inline" for="recheche" class=""><input id="recherche" name="recherche" type="radio"  class="" value="paragraphe" <?php echo $this->form_validation->set_radio('recherche', 'paragraphe'); ?> />Un paragraphe</label>
 </p>
 
 

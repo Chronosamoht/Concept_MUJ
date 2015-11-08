@@ -3,16 +3,14 @@
 
     function show_para(num_para) {
         $.ajax({
-           
             url: '<?php echo base_url(); ?>Concepts/ajax_fetchpara',
-           
             type: 'POST', // Le type de la requête HTTP, ici devenu POST
             data: {num_para: num_para},
             dataType: "json",
             success: function (data) {
                 var para = data.text;
                 var concepts = data.concepts;
-              
+
                 $(".modal-title").text("Paragraphe ");
                 $(".modal-paragraph").html("<p>" + para + "</p>\n");
                 $(".modal-concepts").html("<p>" + concepts + "</p>\n");
@@ -47,10 +45,17 @@
 
 
 <div class=paragraphe>
-    <?php   
-    foreach ($para as $value) {
-        // <p class="lead">Paragraphe $i</p>
-        echo "<a data-toggle=\"modal\" href=\"#para\"><p onclick=\"show_para($value->ID)\" >" . $value->Text . "</p> </a> \n";
+    <?php
+    if ($mess) {
+        foreach ($para as $value) {
+            // <p class="lead">Paragraphe $i</p>
+            echo "<a href=" . base_url("Archives/byid/" . $value->ID) . ">  <p><h3> Message du " . $value->Date . " </h3>  </p> </a>";
+        }
+    } else {
+        foreach ($para as $value) {
+            // <p class="lead">Paragraphe $i</p>
+            echo "<a data-toggle=\"modal\" href=\"#para\"><p onclick=\"show_para($value->ID)\" >" . $value->Text . "</p> </a> \n";
+        }
     }
     ?>
 

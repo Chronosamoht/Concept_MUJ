@@ -77,36 +77,72 @@ class Concepts extends CI_Controller {
         if ($form_data['recherche'] == 'message') {
             // var_dump($form_data['annee']);
             $res = $this->recherche_message($form_data['annee'], $form_data['concepts'], $form_data['texte']);
-            var_dump($res);
+            $mess = true;
         } else {
             $res = $this->recherche_paragraphe($form_data['annee'], $form_data['concepts'], $form_data['texte']);
+            $mess = FALSE;
         }
 
         // run insert model to write data to db
-        $res1 = array();
-        foreach ($res as $v) {
-            array_push($res1, unserialize($v));
-        }
+//        $res1 = array();
+//        foreach ($res as $v) {
+//            array_push($res1, unserialize($v));
+//        }
 
         $this->load->view('templates/header');
-        $this->load->view('templates/print_search', array('para' => $res1));
+        $this->load->view('templates/print_search', array('para' => $res, 'mess' =>$mess));
         $this->load->view('templates/footer');
     }
 
     public function recherche_message($tab_annee, $concepts, $texte) {
 
-        $query = "SELECT ID, Date, Adresse FROM message WHERE ID_LANG =1 ";
-        if (!empty($tab_annee)) {
-            $where = "AND (0=1 ";
-            foreach ($tab_annee as $a) {
-                $where = $where . " OR Date LIKE '" . $a . "%'";
+//        $query = "SELECT ID, Date, Adresse FROM message WHERE ID_LANG =1 ";
+//        if (!empty($tab_annee)) {
+//            $where = "AND (0=1 ";
+//            foreach ($tab_annee as $a) {
+//                $where = $where . " OR Date LIKE '" . $a . "%'";
+//            }
+//            $query = $where . ")";
+//        }
+//
+//        $res = $this->db->query($query);
+        
+       
+         
+        
+        
+        //$res = $this->Message_muj->getmessagesbyyears($tabyear);
+       
+        $res = $this->getmessagebytext($texte);
+        $tab_search = array();
+        foreach ($res as $id_mess) {
+            $mess = $this->Message_muj->getmessagebyID($id_mess);
+            if($mess->ID_LANG ==1) {
+                array_push($tab_search, $mess);
             }
-            $query = $where . ")";
         }
-
-        $res = $this->db->query($query);
-        return $res->result();
+        
+        return $tab_search;
     }
+    
+    
+    public function getmessagebytext($text) {
+        $para = $this->Paragraphe->getparas_bytext($text);
+        $c = count($para);
+        if($c <1) {
+            return -1;
+        } else {
+            $tab = array();
+            foreach($para as $val) {
+                array_push($tab, unserialize($val)->ID_MESSAGE);
+            }
+            ksort($tab);
+            $tab_res = array_unique($tab);
+        }
+        
+        return $tab_res;        
+    }
+    
 
     public function is_set($a, $c, $t) {
         $r = 0;
